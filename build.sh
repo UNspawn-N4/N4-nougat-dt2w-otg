@@ -175,7 +175,6 @@ echo -e "${restore}"
 		echo -e "${restore}"
 		copy_dropbox
 
-
 echo -e "${green}"
 echo "-------------------"
 echo "Build Completed in:"
