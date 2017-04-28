@@ -874,7 +874,6 @@ static void mdp4_overlay_vg_get_src_offset(struct mdp4_overlay_pipe *pipe,
         case MDP_YCBYCR_H2V1:
         //UN end
 		case MDP_YCRYCB_H2V1:
-        
 			if (pipe->src_x & 0x1)
 				pipe->src_x += 1;
 			*luma_off += pipe->src_x * 2 +
