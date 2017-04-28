@@ -14,22 +14,23 @@ KERNEL="zImage"
 DEFCONFIG="hellspawn_mako_defconfig"
 
 # Kernel Details
-BASE_HC_VER="HellSpawn-N4-Nougat"
+BASE_HC_VER="N4-nougat-dt2w-otg"
 VER="-R06"
 HC_VER="$BASE_HC_VER$VER"
 
 # Vars
 export ARCH=arm
 export SUBARCH=arm
-export CROSS_COMPILE=/home/spezi77/android/uber-tc/arm-eabi-6.x/bin/arm-eabi-
+export CROSS_COMPILE=arm-eabi-6.x/bin/arm-eabi-
 export LOCALVERSION="-$HC_VER"
+
 
 # Paths
 KERNEL_DIR=`pwd`
-REPACK_DIR="${HOME}/android/Kernel/anykernel_msm"
-ZIP_MOVE="${HOME}/android/Kernel/Releases/hellspawn-N4"
-ZIMAGE_DIR="${HOME}/android/Kernel/android_kernel_lge_mako/arch/arm/boot"
-DB_FOLDER="${HOME}/Dropbox/Kernel-Betas/hellspawn-N4"
+REPACK_DIR="anykernel_msm"
+ZIP_MOVE="${KERNEL_DIR}/Releases"
+ZIMAGE_DIR="${KERNEL_DIR}/arch/arm/boot"
+DB_FOLDER="${KERNEL_DIR}/Kernel-Betas"
 
 # Functions
 function clean_all {
@@ -121,63 +122,8 @@ echo "Making Kernel:"
 echo "-----------------"
 echo -e "${restore}"
 
-echo "----------------------------"
-echo "Please choose your option:"
-echo "----------------------------"
-while read -p " [1]clean-build / [2]dirty-build / [3]batch-build / [4]abort " cchoice
-do
-case "$cchoice" in
-	1 )
-		HC_VER="$BASE_HC_VER$VER"
-		echo -e "${green}"
-		echo
-		echo "[..........Cleaning up..........]"
-		echo
-		echo -e "${restore}"
-		clean_all
-		echo -e "${green}"
-		echo
-		echo "[....Building `echo $HC_VER`....]"
-		echo
-		echo -e "${restore}"
-		make_kernel
-		echo -e "${green}"
-		echo
-		echo "[....Make `echo $HC_VER`.zip....]"
-		echo
-		echo -e "${restore}"
-		make_zip
-		echo -e "${green}"
-		echo
-		echo "[.....Moving `echo $HC_VER`.....]"
-		echo
-		echo -e "${restore}"
-		copy_dropbox
-		break
-		;;
-	2 )
-		HC_VER="$BASE_HC_VER$VER"
-		echo -e "${green}"
-		echo
-		echo "[....Building `echo $HC_VER`....]"
-		echo
-		echo -e "${restore}"
-		make_kernel
-		echo -e "${green}"
-		echo
-		echo "[....Make `echo $HC_VER`.zip....]"
-		echo
-		echo -e "${restore}"
-		make_zip
-		echo -e "${green}"
-		echo
-		echo "[.....Moving `echo $HC_VER`.....]"
-		echo
-		echo -e "${restore}"
-		copy_dropbox
-		break
-		;;
-	3 )
+
+
 		HC_VER="$BASE_HC_VER$VER"
 		echo -e "${green}"
 		echo
@@ -228,50 +174,7 @@ case "$cchoice" in
 		echo
 		echo -e "${restore}"
 		copy_dropbox
-		git_switch_to_previous_branch
 
-
-		HC_VER="$BASE_HC_VER$VER"
-		echo -e "${green}"
-		echo
-		echo "[..........Cleaning up..........]"
-		echo
-		echo -e "${restore}"
-		clean_all
-		echo -e "${green}"
-		echo
-		git_addback_cpuset_commits
-		make_special_aosp_kernel
-		echo
-		echo -e "${restore}"
-		echo -e "${green}"
-		echo
-		echo "[....Make `echo $HC_VER`.zip....]"
-		echo
-		echo -e "${restore}"
-		make_zip
-		echo -e "${green}"
-		echo
-		echo "[.....Moving `echo $HC_VER`.....]"
-		echo
-		echo -e "${restore}"
-		copy_dropbox
-		git_switch_to_previous_branch
-
-		break
-		;;
-	4 )
-		break
-		;;
-	* )
-		echo -e "${red}"
-		echo
-		echo "Invalid try again!"
-		echo
-		echo -e "${restore}"
-		;;
-esac
-done
 
 echo -e "${green}"
 echo "-------------------"

@@ -111,7 +111,27 @@ static const int vdd_val[VDD_TYPE_MAX][VDD_VAL_MAX] = {
 		},
 };
 
-static int otg_hack_active = 0;
+
+//static int otg_hack_active = 0; //UN commented
+static int otg_hack_active = 1;   //UN enabled
+/* UN:
+An OTG cable has the ID pin grounded out, which is used to trigger usb host mode. However, ID pin detection is broken in the Nexus 4 (although working for Slimport detection). 	   Instead, we rely on detection of a "proprietary" charger (voltage on the data pins) in order to determine when to enable host mode.
+Self-powered devices (e.g. digital cameras) don't send power to the phone. This will cause the device to not be detectable. Therefore, external power is still required.
+Slimport cannot work concurrently with usb data due to hardware limitations (Slimport takes over the usb data pins).
+USB drive will automatically mount at /storage/usbdisk0 (also accessible at /usbdisk and /mnt/usbdisk).
+Media scanning should occur automatically. Make sure to unmount before removal to avoid data loss.
+Stock Android only supports FAT for storage. NTFS/exFAT/ext4 partitions may require the use of a third party app like StickMount (CM now supports these partitions natively!).
+There appears to be a minor bug in the AOSP code that prevents available space from being reported in Settings->Storage->USB Storage.
+Current builds do not allow for host mode without charging. Use this as a workaround:
+Quote:
+Originally Posted by RussianBear
+For those that want to stop usb charging, create a script modifying this to either 1 (disabled) or 0 (enabled). Works for me Not responsible for your phone(s) exploding.
+    echo 1 > /sys/module/pm8921_charger/parameters/disabled
+    echo 0 > /sys/module/pm8921_charger/parameters/disabled
+Standard Disclaimer-- Flashing this patch is at your own risk, and carries no warranty or liability on my part. 
+The assumption is that you will perform due diligence before flashing and make any necessary backups if required.
+*/
+
 module_param_named(otg_hack_enable,
 			otg_hack_active,
 			int, 0664);
