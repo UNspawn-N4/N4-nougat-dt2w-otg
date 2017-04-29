@@ -24,7 +24,6 @@ export SUBARCH=arm
 export CROSS_COMPILE=arm-eabi-6.x/bin/arm-eabi-
 export LOCALVERSION="-$HC_VER"
 
-
 # Paths
 KERNEL_DIR=`pwd`
 REPACK_DIR="anykernel_msm"
