@@ -15,7 +15,7 @@ DEFCONFIG="hellspawn_mako_defconfig"
 
 # Kernel Details
 BASE_HC_VER="N4-nougat-dt2w-otg"
-VER="-R06"
+VER="-v01"
 HC_VER="$BASE_HC_VER$VER"
 
 # Vars
