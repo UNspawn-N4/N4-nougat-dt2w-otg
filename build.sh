@@ -37,20 +37,13 @@ function clean_all {
 		make clean && make mrproper
 }
 
-function make_kernel {
-		make $DEFCONFIG
-		make $THREAD
-		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/tmp/anykernel
-}
-
-function make_cm_kernel {
-		HC_VER="$BASE_HC_VER$VER-CM-UBERTC-6.x"
+function make_aosp_kernel {
+		HC_VER="$BASE_HC_VER$VER-AOSP-UBERTC-6.x"
 		echo "[....Building `echo $HC_VER`....]"
 		make $DEFCONFIG
 		make $THREAD
 		cp -vr $ZIMAGE_DIR/$KERNEL $REPACK_DIR/tmp/anykernel
 }
-
 
 function git_addback_cm_patch {
 		branch_name=$(git symbolic-ref -q HEAD)
@@ -107,8 +100,7 @@ echo -e "${restore}"
 		clean_all
 		echo -e "${green}"
 		echo
-	#	git_addback_cm_patch
-		make_cm_kernel
+		make_aosp_kernel
 		echo
 		echo -e "${restore}"
 		echo -e "${green}"
@@ -123,6 +115,8 @@ echo -e "${restore}"
 		echo
 		echo -e "${restore}"
 		copy_dropbox
+
+
 
 echo -e "${green}"
 echo "-------------------"
