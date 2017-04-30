@@ -34,8 +34,11 @@ DB_FOLDER="${KERNEL_DIR}/Kernel-Betas"
 # Functions
 function clean_all {
 		rm -rf $REPACK_DIR/tmp/anykernel/zImage
+		rm -rf $ZIP_MOVE
+		mkdir $ZIP_MOVE
 		make clean && make mrproper
 }
+
 
 function make_aosp_kernel {
 		HC_VER="$BASE_HC_VER$VER-AOSP-UBERTC-6.x"
