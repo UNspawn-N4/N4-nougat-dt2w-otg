@@ -111,7 +111,8 @@ static const int vdd_val[VDD_TYPE_MAX][VDD_VAL_MAX] = {
 		},
 };
 
-static int otg_hack_active = 0;
+//static int otg_hack_active = 0; //UN commented
+static int otg_hack_active = 1;   //UN enabled
 module_param_named(otg_hack_enable,
 			otg_hack_active,
 			int, 0664);
